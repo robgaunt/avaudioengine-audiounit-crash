@@ -74,22 +74,6 @@ static const Float64 kSampleRate = 44100.0;
   UInt32 inDataFlag = 1;
   AudioUnitSetProperty(audioComponent, kAudioOutputUnitProperty_EnableIO,
                        kAudioUnitScope_Input, 1, &inDataFlag, sizeof(inDataFlag));
-
-  // Configure the audio stream format.
-  AudioStreamBasicDescription asbd;
-  asbd.mSampleRate = kSampleRate;
-  asbd.mFormatID = kAudioFormatLinearPCM;
-  asbd.mFormatFlags = (kAudioFormatFlagIsSignedInteger |
-                       kAudioFormatFlagsNativeEndian |
-                       kAudioFormatFlagIsPacked);
-  asbd.mChannelsPerFrame = kChannelCount;
-  asbd.mFramesPerPacket = kFrameCount;
-  asbd.mBitsPerChannel = kChannelBits;
-  asbd.mBytesPerFrame = kChannelBits / 8 * kChannelCount;
-  asbd.mBytesPerPacket = asbd.mBytesPerFrame * kFrameCount;
-  AudioUnitSetProperty(audioComponent, kAudioUnitProperty_StreamFormat,
-                       kAudioUnitScope_Output, 1, &asbd, sizeof(asbd));
-
   AudioUnitInitialize(audioComponent);
 }
 
